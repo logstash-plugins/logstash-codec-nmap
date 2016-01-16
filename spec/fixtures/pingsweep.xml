@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///usr/local/bin/../share/nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.01 scan initiated Sat Jan 16 07:23:34 2016 as: nmap -sP -oX spec/fixtures/pingsweep.xml 192.168.1.0/24 -->
+<nmaprun scanner="nmap" args="nmap -sP -oX spec/fixtures/pingsweep.xml 192.168.1.0/24" start="1452950614" startstr="Sat Jan 16 07:23:34 2016" version="7.01" xmloutputversion="1.04">
+<verbose level="0"/>
+<debugging level="0"/>
+<host><status state="up" reason="syn-ack" reason_ttl="0"/>
+<address addr="192.168.1.1" addrtype="ipv4"/>
+<hostnames>
+<hostname name="router.asus.com" type="PTR"/>
+</hostnames>
+<times srtt="1844" rttvar="5000" to="100000"/>
+</host>
+<host><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.1.100" addrtype="ipv4"/>
+<hostnames>
+<hostname name="andrew-bfg" type="PTR"/>
+</hostnames>
+<times srtt="375" rttvar="5000" to="100000"/>
+</host>
+<host><status state="up" reason="conn-refused" reason_ttl="0"/>
+<address addr="192.168.1.132" addrtype="ipv4"/>
+<hostnames>
+</hostnames>
+<times srtt="916" rttvar="4196" to="100000"/>
+</host>
+<runstats><finished time="1452950617" timestr="Sat Jan 16 07:23:37 2016" elapsed="2.58" summary="Nmap done at Sat Jan 16 07:23:37 2016; 256 IP addresses (3 hosts up) scanned in 2.58 seconds" exit="success"/><hosts up="3" down="253" total="256"/>
+</runstats>
+</nmaprun>
