@@ -1,5 +1,17 @@
 # Logstash Plugin
 
+[![Travis Build Status](https://travis-ci.org/logstash-plugins/logstash-codec-nmap.svg)](https://travis-ci.org/logstash-plugins/logstash-codec-nmap)
+
+
+This is a plugin for [Logstash](https://github.com/elastic/logstash).
+
+@@ -86,4 +85,4 @@ Programming is not a required skill. Whatever you've seen about open source and
+
+It is more important to the community that you are able to contribute.
+
++For more information about contributing, see the [CONTRIBUTING](https://github.com/elastic/logstash/blob/master/CONTRIBUTING.md) file.
+-For more information about contributing, see the [CONTRIBUTING](https://github.com/elastic/logstash/blob/master/CONTRIBUTING.md) file.It is more important to the community that you are able to contribute.This is a plugin for [Logstash](https://github.com/elastic/logstash).-Status](http://build-eu-00.elastic.co/view/LS%20Plugins/view/LS%20Inputs/job/logstash-plugin-input-rabbitmq-unit/badge/icon)](http://build-eu-00.elastic.co/view/LS%20Plugins/view/LS%20Inputs/job/logstash-plugin-input-rabbitmq-unit/)
+
 This is a plugin for [Logstash](https://github.com/elastic/logstash).
 
 It is fully free and fully open source. The license is Apache 2.0, meaning you are pretty much free to use it however you want in whatever way.
