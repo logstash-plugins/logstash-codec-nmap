@@ -46,7 +46,6 @@ describe LogStash::Codecs::Nmap do
       it_should_behave_like "a valid parse"
     end
 
-
     describe "localscan.xml" do
       let(:xml_string) { File.open("spec/fixtures/localscan.xml").read }
       it_should_behave_like "a valid parse"
@@ -57,9 +56,18 @@ describe LogStash::Codecs::Nmap do
       it_should_behave_like "a valid parse"
     end
 
-
     describe "full_scan.xml" do
       let(:xml_string) { File.open("spec/fixtures/full_scan.xml").read }
+      it_should_behave_like "a valid parse"
+    end
+
+    describe "nothingup.xml" do
+      let(:xml_string) { File.open("spec/fixtures/nothingup.xml").read }
+      it_should_behave_like "a valid parse"
+    end
+
+    describe "ip_down.xml" do
+      let(:xml_string) { File.open("spec/fixtures/ip_down.xml").read }
       it_should_behave_like "a valid parse"
     end
 

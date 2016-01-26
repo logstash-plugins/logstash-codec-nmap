@@ -9,6 +9,8 @@ require 'securerandom'
 class LogStash::Codecs::Nmap < LogStash::Codecs::Base
   config_name "nmap"
 
+  # Emit scan metadat
+  config :emit_scan_metadata, :validate => :boolean, :default => true
   # Emit all host data as a nested document (including ports + traceroutes) with the type 'nmap_fullscan'
   config :emit_hosts, :validate => :boolean, :default => true
   # Emit each port as a separate document with type 'nmap_port'
@@ -25,25 +27,36 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
     xml = Nmap::XML.parse(data)
     scan_id = SecureRandom.uuid
 
-    xml.hosts.each_with_index do |host,idx|
-      # Convert the host to a 'base' host event
-      # This will be used for the later port/hop types
-      base = hashify_host(host, xml)
+    base = {}
+    base['arguments'] = xml.scanner.arguments
+    base['version'] = xml.scanner.version
+    base['scan_id'] = scan_id
 
-      # Add some scanner-wide attributes
-      base['arguments'] = xml.scanner.arguments
-      base['version'] = xml.scanner.version
-      base['scan_id'] = scan_id
+    # This really needs to be put into ruby-nmap
+    scan_host_stats = Hash[xml.instance_variable_get(:@doc).xpath('/nmaprun[@scanner="nmap"]/runstats/hosts').first.attributes.map {|k,v| [k,v.value.to_i]}]
+
+    if @emit_scan_metadata
+        yield LogStash::Event.new(base.merge({
+          'type' => 'nmap_scan_metadata',
+          'host_stats' => scan_host_stats,
+          'run_stats' =>  xml.run_stats.first
+        }))
+    end
+
+    xml.hosts.each_with_index do |host,idx|
+      # Convert the host to a 'host_base' host event
+      # This will be used for the later port/hop types
+      host_base = hashify_host(host, xml).merge(base)
+
 
       # Pull out the detail
       ports = host.ports.map {|p| hashify_port(p)}
       traceroute = hashify_traceroute(host.traceroute)
-
       scan_host_id = scan_id + "-h#{idx}"
 
       if @emit_ports && ports
         ports.each.with_index do |port,idx|
-          yield LogStash::Event.new(base.merge(
+          yield LogStash::Event.new(host_base.merge(
             'type' => 'nmap_port',
             'port' => port,
             'scan_host_id' => scan_host_id,
@@ -55,7 +68,7 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
       if @emit_traceroute_links && traceroute && (hops = traceroute['hops'])
         hops.each_with_index do |hop,idx|
           next_hop = hops[idx+1]
-          yield LogStash::Event.new(base.merge(
+          yield LogStash::Event.new(host_base.merge(
             'type' =>'nmap_traceroute_link',
             'from' => hop,
             'to' => next_hop,
@@ -67,7 +80,7 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
       end
 
       if @emit_hosts
-        yield LogStash::Event.new(base.merge(
+        yield LogStash::Event.new(host_base.merge(
           'type' => 'nmap_host',
           'ports' => ports,
           'traceroute' => traceroute,
