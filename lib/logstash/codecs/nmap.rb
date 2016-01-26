@@ -15,7 +15,7 @@ require 'securerandom'
 class LogStash::Codecs::Nmap < LogStash::Codecs::Base
   config_name "nmap"
 
-  # Emit scan metadat
+  # Emit scan metadata
   config :emit_scan_metadata, :validate => :boolean, :default => true
   # Emit all host data as a nested document (including ports + traceroutes) with the type 'nmap_fullscan'
   config :emit_hosts, :validate => :boolean, :default => true
