@@ -3,8 +3,14 @@ require "logstash/codecs/base"
 require "nmap/xml"
 require 'securerandom'
 
-# This codec may be used to decode (via inputs) only.
-# It decodes nmap generated XML and outputs each host as its own event
+# This codec may be used to decode only
+#
+# Event types are listed below
+#
+# `nmap_scan_metadata`: An object containing top level information about the scan, including how many hosts were up, and how many were down. Useful for the case where you need to check if a DNS based hostname does not resolve, where both those numbers will be zero.
+# `nmap_host`: One event is created per host. The full data covering an individual host, including open ports and traceroute information as a nested structure.
+# `nmap_port`: One event is created per host/port. This duplicates data already in `nmap_host`: This was put in for the case where you want to model ports as separate documents in Elasticsearch (which Kibana prefers).
+# `nmap_traceroute_link`: One of these is output per traceroute 'connection', with a `from` and a `to` object describing each hop. Note that traceroute hop data is not always correct due to the fact that each tracing ICMP packet may take a different route. Also very useful for Kibana visualizations.
 
 class LogStash::Codecs::Nmap < LogStash::Codecs::Base
   config_name "nmap"
