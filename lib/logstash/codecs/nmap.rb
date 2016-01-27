@@ -44,11 +44,20 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
     # This really needs to be put into ruby-nmap
     scan_host_stats = Hash[xml.instance_variable_get(:@doc).xpath('/nmaprun[@scanner="nmap"]/runstats/hosts').first.attributes.map {|k,v| [k,v.value.to_i]}]
 
+    finished_info = Hash[xml.instance_variable_get(:@doc).xpath('/nmaprun[@scanner="nmap"]/runstats/finished').first.attributes.map {|k,v| [k,v.value] }]
+    finished_info["elapsed"] = finished_info["elapsed"].to_f
+    finished_info["time"] = timeify(Time.at(finished_info["time"].to_i))
+
+    run_stats = hashify_struct(xml.run_stats.first)
+    run_stats["finished"] = finished_info
+
     if @emit_scan_metadata
         yield LogStash::Event.new(base.merge({
           'type' => 'nmap_scan_metadata',
           'host_stats' => scan_host_stats,
-          'run_stats' =>  xml.run_stats.first
+          'run_stats' =>  run_stats,
+          'start_time' => timeify(xml.scanner.start_time),
+          'end_time' => run_stats["finished"]["time"]
         }))
     end
 
