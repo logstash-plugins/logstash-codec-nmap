@@ -53,6 +53,7 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
 
     if @emit_scan_metadata
         yield LogStash::Event.new(base.merge({
+          'id' => scan_id,
           'type' => 'nmap_scan_metadata',
           'host_stats' => scan_host_stats,
           'run_stats' =>  run_stats,

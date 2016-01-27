@@ -27,6 +27,15 @@ describe LogStash::Codecs::Nmap do
           expect(event).to be_a(LogStash::Event)
         end
       end
+
+      let(:ids) { subject.map {|e| e["id"] } }
+      it "should add a unique id field to all events" do
+        expect(ids).to eql(ids.uniq)
+      end
+
+      it "should not have any null id fields" do
+        expect(ids.include?(nil)).to be_falsey
+      end
     end
 
     describe "parsing traceroutes" do
