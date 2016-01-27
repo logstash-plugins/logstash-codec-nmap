@@ -1,3 +1,5 @@
+## 0.0.13
+  - Actually include 'times' element
 ## 0.0.12
   - Improve mapping examples
   - Fix IDs for nmap_scan_metadata

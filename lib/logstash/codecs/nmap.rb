@@ -123,6 +123,10 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
     h['start_time'] = timeify(host.start_time, scan_start)
     h['end_time'] = timeify(host.end_time, scan_start)
 
+    # Needs to be pached in ruby-nmap
+    times = host.instance_variable_get(:@node).xpath("times").first
+    h['times'] = Hash[times.first.map {|k,v| [k,v.to_i]}] if times
+
     # These two are actually different.
     # Address may contain a MAC, addresses will not AFAICT
     h['addresses'] = hashify_structs(host.addresses)
