@@ -3,7 +3,10 @@ require "logstash/codecs/base"
 require "nmap/xml"
 require 'securerandom'
 
-# This codec may be used to decode only
+# This codec is used to parse https://nmap.org/[namp] output data which is serialized in XML format. Nmap ("Network Mapper") is a free and open source utility for network discovery and security auditing. 
+# For more information on nmap, see https://nmap.org/.
+# 
+# This codec can only be used for decoding data.
 #
 # Event types are listed below
 #
