@@ -1,3 +1,6 @@
+## 0.0.12
+  - Improve mapping examples
+  - Fix IDs for nmap_scan_metadata
 ## 0.0.11
   - Add start/end times for nmap_scan_metadata documents
 ## 0.0.10
