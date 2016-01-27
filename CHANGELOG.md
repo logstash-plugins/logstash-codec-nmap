@@ -1,3 +1,5 @@
+## 0.0.11
+  - Add start/end times for nmap_scan_metadata documents
 ## 0.0.10
   - Add top level metadata object
   - Improve examples
