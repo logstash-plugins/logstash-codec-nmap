@@ -1,6 +1,78 @@
 {
 	"template": "nmap-logstash-*",
 	"mappings": {
+		"nmap_scan_metadata" : {
+			"properties" : {
+				"@timestamp" : {
+					"type" : "date",
+					"format" : "strict_date_optional_time||epoch_millis"
+				},
+				"@version" : {
+					"type" : "string",
+					"index" : "not_analyzed"
+				},
+				"arguments" : {
+					"type" : "string",
+					"analyzer" : "whitespace"
+				},
+				"host" : {
+					"type" : "string",
+					"index" : "not_analyzed"
+				},
+				"host_stats" : {
+					"properties" : {
+						"down" : {
+							"type" : "long"
+						},
+						"total" : {
+							"type" : "long"
+						},
+						"up" : {
+							"type" : "long"
+						}
+					}
+				},
+				"id" : {
+					"type" : "string",
+					"index" : "not_analyzed"
+				},
+				"run_stats" : {
+					"properties" : {
+						"elapsed" : {
+							"type" : "double"
+						},
+						"end_time" : {
+							"type" : "string",
+							"index" : "not_analyzed"
+						},
+						"exit_status" : {
+							"type" : "string",
+							"index" : "not_analyzed"
+						},
+						"summary" : {
+							"type" : "string",
+							"index" : "not_analyzed"
+						}
+					}
+				},
+				"scan_id" : {
+					"type" : "string",
+					"index" : "not_analyzed"
+				},
+				"tags" : {
+					"type" : "string",
+					"index" : "not_analyzed"
+				},
+				"type" : {
+					"type" : "string",
+					"index" : "not_analyzed"
+				},
+				"version" : {
+					"type" : "string",
+					"index" : "not_analyzed"
+				}
+			}
+		},
 		"nmap_port": {
 			"properties": {
 				"@timestamp": {
