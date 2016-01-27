@@ -56,9 +56,9 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
           'id' => scan_id,
           'type' => 'nmap_scan_metadata',
           'host_stats' => scan_host_stats,
-          'run_stats' =>  run_stats,
           'start_time' => timeify(xml.scanner.start_time),
-          'end_time' => run_stats["finished"]["time"]
+          'end_time' => run_stats["finished"]["time"],
+          'run_stats' =>  hashify_run_stats(xml.run_stats.first)
         }))
     end
 
@@ -137,6 +137,12 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
     h['uptime'] = hashify_uptime(host.uptime)
     h['os'] = hashify_os(host.os)
 
+    h
+  end
+
+  def hashify_run_stats(run_stats)
+    h = hashify_struct(run_stats)
+    h["elapsed"] = h["elapsed"].to_f
     h
   end
 
@@ -247,7 +253,7 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
   end
 
   def hashify_struct(struct)
-    Hash[struct.each_pair.map {|k,v| [k, de_keyword(v)]}]
+    Hash[struct.each_pair.map {|k,v| [de_keyword(k), de_keyword(v)]}]
   end
 
   def de_keyword(value)
