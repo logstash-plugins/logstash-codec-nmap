@@ -1,3 +1,5 @@
+# 0.0.14
+  - New dependency requirements for logstash-core for the 5.0 release
 ## 0.0.13
   - Actually include 'times' element
 ## 0.0.12
