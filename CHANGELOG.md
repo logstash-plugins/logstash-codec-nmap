@@ -1,3 +1,5 @@
+# 0.0.16
+  - Pin ruby-nmap version to 0.8.0 to avoid needing ruby 2.0+
 # 0.0.15
   - Depend on logstash-core-plugin-api instead of logstash-core, removing the need to mass update plugins on major releases of logstash
 # 0.0.14
