@@ -1,3 +1,5 @@
+# 0.0.17
+  - Expand logstash-core-api constraints to allow for 5.2 functionality
 # 0.0.16
   - Pin ruby-nmap version to 0.8.0 to avoid needing ruby 2.0+
 # 0.0.15
