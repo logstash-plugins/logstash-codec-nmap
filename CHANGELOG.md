@@ -1,3 +1,5 @@
+# 0.0.18
+  - Fix bug in 0.0.17 that prevented this from working with LS 5.x
 # 0.0.17
   - Expand logstash-core-api constraints to allow for 5.2 functionality
 # 0.0.16
