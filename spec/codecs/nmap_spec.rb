@@ -28,7 +28,7 @@ describe LogStash::Codecs::Nmap do
         end
       end
 
-      let(:ids) { subject.map {|e| e["id"] } }
+      let(:ids) { subject.map {|e| e.get("id") } }
       it "should add a unique id field to all events" do
         expect(ids).to eql(ids.uniq)
       end
