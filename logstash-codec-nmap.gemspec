@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
 
   s.name            = 'logstash-codec-nmap'
-  s.version         = '0.0.19'
+  s.version         = '0.0.20'
   s.licenses        = ['Apache License (2.0)']
   s.summary         = "This codec may be used to decode Nmap XML"
   s.description     = "This gem is a Logstash plugin required to be installed on top of the Logstash core pipeline using $LS_HOME/bin/logstash-plugin install gemname. This gem is not a stand-alone program"
