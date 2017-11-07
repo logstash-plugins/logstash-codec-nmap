@@ -1,3 +1,6 @@
+## 0.0.21
+  - Update gemspec summary
+
 ## 0.0.20
   - Fix some documentation issues
 
