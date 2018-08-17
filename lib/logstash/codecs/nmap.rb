@@ -213,6 +213,7 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
       'ssl' => service.ssl?,
       'protocol' => protocol,
       'product' => service.product,
+      'version' => service.version,
       'hostname' => service.hostname, # This is just a string
       'device_type' => service.device_type,
       'fingerprint_method' => service.fingerprint_method.to_s,
