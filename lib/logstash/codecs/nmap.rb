@@ -3,9 +3,9 @@ require "logstash/codecs/base"
 require "nmap/xml"
 require 'securerandom'
 
-# This codec is used to parse https://nmap.org/[namp] output data which is serialized in XML format. Nmap ("Network Mapper") is a free and open source utility for network discovery and security auditing. 
+# This codec is used to parse https://nmap.org/[namp] output data which is serialized in XML format. Nmap ("Network Mapper") is a free and open source utility for network discovery and security auditing.
 # For more information on nmap, see https://nmap.org/.
-# 
+#
 # This codec can only be used for decoding data.
 #
 # Event types are listed below
@@ -81,6 +81,7 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
             'scan_host_id' => scan_host_id,
             'id' => scan_host_id+"-p#{idx}"
           ))
+
         end
       end
 
@@ -222,6 +223,16 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
     }
   end
 
+  def hashify_script(script)
+    return unless script
+
+    script.each do |key,value|
+      {
+        script['id'] => script['output']  #str
+      }
+    end
+  end
+
   def hashify_port(port)
     return unless port
 
@@ -230,6 +241,7 @@ class LogStash::Codecs::Nmap < LogStash::Codecs::Base
       'reason' => port.reason,
       'protocol' => port.protocol.to_s,
       'service' => hashify_service(port.service),
+      'script' => hashify_script(port.scripts),
       'state' => port.state.to_s
     }
   end
