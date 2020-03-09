@@ -24,4 +24,5 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'ruby-nmap', "~> 0.8.0"
 
   s.add_development_dependency 'logstash-devutils'
+  s.add_development_dependency 'insist'
 end
