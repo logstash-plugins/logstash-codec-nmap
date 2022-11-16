@@ -1,3 +1,6 @@
+## 0.0.22
+  - [DOC] Fixed typo: changed `namp` to `nmap` [#32](https://github.com/logstash-plugins/logstash-codec-nmap/pull/32)
+
 ## 0.0.21
   - Update gemspec summary
 
