@@ -1,23 +1,16 @@
 {
-	"template": "nmap-logstash-*",
+	"index_patterns": ["nmap-logstash-*"],
 	"mappings": {
-		"nmap_scan_metadata" : {
 			"properties" : {
 				"@timestamp" : {
 					"type" : "date",
 					"format" : "strict_date_optional_time||epoch_millis"
 				},
 				"@version" : {
-					"type" : "string",
-					"index" : "not_analyzed"
-				},
-				"arguments" : {
-					"type" : "string",
-					"analyzer" : "whitespace"
+					"type" : "text"
 				},
 				"host" : {
-					"type" : "string",
-					"index" : "not_analyzed"
+					"type" : "text"
 				},
 				"host_stats" : {
 					"properties" : {
@@ -33,110 +26,74 @@
 					}
 				},
 				"id" : {
-					"type" : "string",
-					"index" : "not_analyzed"
+					"type" : "text"
 				},
 				"run_stats" : {
 					"properties" : {
 						"elapsed" : {
-							"type" : "double"
+							"type" : "float"
 						},
 						"end_time" : {
-							"type" : "string",
-							"index" : "not_analyzed"
+							"type" : "date"
 						},
 						"exit_status" : {
-							"type" : "string",
-							"index" : "not_analyzed"
+							"type" : "text"
 						},
 						"summary" : {
-							"type" : "string",
-							"index" : "not_analyzed"
+							"type" : "text"
 						}
 					}
 				},
 				"scan_id" : {
-					"type" : "string",
-					"index" : "not_analyzed"
+					"type" : "text"
 				},
 				"tags" : {
-					"type" : "string",
-					"index" : "not_analyzed"
+					"type" : "text"
 				},
 				"type" : {
-					"type" : "string",
-					"index" : "not_analyzed"
+					"type" : "text"
 				},
 				"version" : {
-					"type" : "string",
-					"index" : "not_analyzed"
-				}
-			}
-		},
-		"nmap_port": {
-			"properties": {
-				"@timestamp": {
-					"type": "date",
-					"format": "strict_date_optional_time||epoch_millis"
-				},
-				"@version": {
-					"type": "string",
-					"index": "not_analyzed"
+					"type" : "text"
 				},
 				"address": {
-					"type": "string",
-					"index": "not_analyzed"
+					"type": "text"
 				},
 				"addresses": {
 					"properties": {
 						"addr": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "text"
 						},
 						"type": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "text"
 						}
 					}
 				},
 				"arguments": {
-					"type": "string",
-					"analyzer": "whitespace",
-					"fields": {
-						"raw": {
-							"type": "string",
-							"index": "not_analyzed"
-						}
-					}
+				  "type": "text"
 				},
 				"end_time": {
-					"type": "date",
-					"format": "strict_date_optional_time||epoch_millis"
+					"type": "date"
 				},
 				"geoip": {
 					"properties": {
 						"area_code": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						},
 						"city_name": {
-							"type": "string"
+							"type": "keyword"
 						},
 						"continent_code": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						},
 						"country_code2": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						},
 						"country_code3": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						},
 						"country_name": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						},
 						"dma_code": {
 							"type": "integer"
@@ -154,34 +111,21 @@
 							"type": "double"
 						},
 						"postal_code": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						},
 						"real_region_name": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						},
 						"region_name": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						},
 						"timezone": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						}
 					}
 				},
-				"host": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"id": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
 				"ip": {
-					"type": "string",
-					"index": "not_analyzed"
+					"type": "ip"
 				},
 				"ipv4": {
 					"type": "ip"
@@ -191,23 +135,19 @@
 						"classes": {
 							"properties": {
 								"accuracy": {
-									"type": "integer"
+									"type": "long"
 								},
 								"family": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "text"
 								},
 								"gen": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "text"
 								},
 								"type": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "text"
 								},
 								"vendor": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "text"
 								}
 							}
 						},
@@ -217,8 +157,7 @@
 									"type": "long"
 								},
 								"name": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "text"
 								}
 							}
 						},
@@ -230,27 +169,30 @@
 				"port": {
 					"properties": {
 						"number": {
-							"type": "integer"
+							"type": "long"
 						},
 						"protocol": {
-							"type": "string"
+							"type": "keyword"
 						},
 						"reason": {
-							"type": "string"
+							"type": "text"
 						},
 						"service": {
 							"properties": {
 								"confidence": {
-									"type": "integer"
+									"type": "long"
 								},
 								"fingerprint_method": {
-									"type": "string"
+									"type": "text"
 								},
 								"name": {
-									"type": "string"
+									"type": "keyword"
 								},
 								"product": {
-									"type": "string"
+									"type": "keyword"
+								},
+								"version": {
+									"type": "keyword"
 								},
 								"ssl": {
 									"type": "boolean"
@@ -258,104 +200,40 @@
 							}
 						},
 						"state": {
-							"type": "string"
+							"type": "text"
 						}
 					}
 				},
 				"scan_host_id": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"scan_id": {
-					"type": "string",
-					"index": "not_analyzed"
+					"type": "text"
 				},
 				"start_time": {
-					"type": "date",
-					"format": "strict_date_optional_time||epoch_millis"
+					"type": "date"
 				},
 				"status": {
 					"properties": {
 						"reason": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "text"
 						},
 						"state": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "text"
 						}
 					}
-				},
-				"tags": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"type": {
-					"type": "string",
-					"index": "not_analyzed"
 				},
 				"uptime": {
 					"properties": {
 						"last_boot": {
-							"type": "date",
-							"format": "strict_date_optional_time||epoch_millis"
+							"type": "date"
 						},
 						"seconds": {
 							"type": "long"
 						}
 					}
 				},
-				"version": {
-					"type": "string",
-					"index": "not_analyzed"
-				}
-			}
-		},
-		"nmap_traceroute_link": {
-			"properties": {
-				"@timestamp": {
-					"type": "date",
-					"format": "strict_date_optional_time||epoch_millis"
-				},
-				"@version": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"address": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"addresses": {
-					"properties": {
-						"addr": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"type": {
-							"type": "string",
-							"index": "not_analyzed"
-						}
-					}
-				},
-				"arguments": {
-					"type": "string",
-					"analyzer": "whitespace",
-					"fields": {
-						"raw": {
-							"type": "string",
-							"index": "not_analyzed"
-						}
-					}
-				},
-				"end_time": {
-					"type": "date",
-					"format": "strict_date_optional_time||epoch_millis"
-				},
 				"from": {
 					"properties": {
 						"address": {
-							"type": "string",
-							"index": "not_analyzed",
+							"type": "keyword",
 							"fields": {
 								"address_ipv4": {
 									"type": "ip"
@@ -365,27 +243,22 @@
 						"geoip": {
 							"properties": {
 								"area_code": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"city_name": {
-									"type": "string"
+									"type": "keyword"
 								},
 								"continent_code": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"country_code2": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"country_code3": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"country_name": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"dma_code": {
 									"type": "integer"
@@ -403,188 +276,40 @@
 									"type": "double"
 								},
 								"postal_code": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"real_region_name": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"region_name": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"timezone": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								}
 							}
 						},
 						"hostname": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						},
 						"index": {
-							"type": "integer"
+							"type": "long"
 						},
 						"rtt": {
 							"type": "long"
 						},
 						"ttl": {
 							"type": "integer"
-						}
-					}
-				},
-				"geoip": {
-					"properties": {
-						"area_code": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"city_name": {
-							"type": "string"
-						},
-						"continent_code": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"country_code2": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"country_code3": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"country_name": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"dma_code": {
-							"type": "integer"
-						},
-						"ip": {
-							"type": "ip"
-						},
-						"latitude": {
-							"type": "double"
-						},
-						"location": {
-							"type": "geo_point"
-						},
-						"longitude": {
-							"type": "double"
-						},
-						"postal_code": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"real_region_name": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"region_name": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"timezone": {
-							"type": "string",
-							"index": "not_analyzed"
-						}
-					}
-				},
-				"host": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"id": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"ip": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"ipv4": {
-					"type": "ip"
-				},
-				"os": {
-					"properties": {
-						"classes": {
-							"properties": {
-								"accuracy": {
-									"type": "integer"
-								},
-								"family": {
-									"type": "string",
-									"index": "not_analyzed"
-								},
-								"gen": {
-									"type": "string",
-									"index": "not_analyzed"
-								},
-								"type": {
-									"type": "string",
-									"index": "not_analyzed"
-								},
-								"vendor": {
-									"type": "string",
-									"index": "not_analyzed"
-								}
-							}
-						},
-						"matches": {
-							"properties": {
-								"accuracy": {
-									"type": "long"
-								},
-								"name": {
-									"type": "string",
-									"index": "not_analyzed"
-								}
-							}
-						},
-						"ports_used": {
-							"type": "long"
 						}
 					}
 				},
 				"rtt_diff": {
 					"type": "integer"
 				},
-				"scan_host_id": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"scan_id": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"start_time": {
-					"type": "date",
-					"format": "strict_date_optional_time||epoch_millis"
-				},
-				"status": {
-					"properties": {
-						"reason": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"state": {
-							"type": "string",
-							"index": "not_analyzed"
-						}
-					}
-				},
-				"tags": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
 				"to": {
 					"properties": {
 						"address": {
-							"type": "string",
-							"index": "not_analyzed",
+							"type": "keyword",
 							"fields": {
 								"address_ipv4": {
 									"type": "ip"
@@ -594,27 +319,22 @@
 						"geoip": {
 							"properties": {
 								"area_code": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"city_name": {
-									"type": "string"
+									"type": "keyword"
 								},
 								"continent_code": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"country_code2": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"country_code3": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"country_name": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"dma_code": {
 									"type": "integer"
@@ -632,26 +352,24 @@
 									"type": "double"
 								},
 								"postal_code": {
-									"type": "string"
+									"type": "keyword"
 								},
 								"real_region_name": {
-									"type": "string"
+									"type": "keyword"
 								},
 								"region_name": {
-									"type": "string"
+									"type": "keyword"
 								},
 								"timezone": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								}
 							}
 						},
 						"hostname": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						},
 						"index": {
-							"type": "integer"
+							"type": "long"
 						},
 						"rtt": {
 							"type": "long"
@@ -661,209 +379,29 @@
 						}
 					}
 				},
-				"type": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"uptime": {
-					"properties": {
-						"last_boot": {
-							"type": "date",
-							"format": "strict_date_optional_time||epoch_millis"
-						},
-						"seconds": {
-							"type": "long"
-						}
-					}
-				},
-				"version": {
-					"type": "string",
-					"index": "not_analyzed"
-				}
-			}
-		},
-		"nmap_host": {
-			"properties": {
-				"@timestamp": {
-					"type": "date",
-					"format": "strict_date_optional_time||epoch_millis"
-				},
-				"@version": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"address": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"addresses": {
-					"properties": {
-						"addr": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"type": {
-							"type": "string",
-							"index": "not_analyzed"
-						}
-					}
-				},
-				"arguments": {
-					"type": "string",
-					"analyzer": "whitespace",
-					"fields": {
-						"raw": {
-							"type": "string",
-							"index": "not_analyzed"
-						}
-					}
-				},
-				"end_time": {
-					"type": "date",
-					"format": "strict_date_optional_time||epoch_millis"
-				},
-				"geoip": {
-					"properties": {
-						"area_code": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"city_name": {
-							"type": "string"
-						},
-						"continent_code": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"country_code2": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"country_code3": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"country_name": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"dma_code": {
-							"type": "integer"
-						},
-						"ip": {
-							"type": "ip"
-						},
-						"latitude": {
-							"type": "double"
-						},
-						"location": {
-							"type": "geo_point"
-						},
-						"longitude": {
-							"type": "double"
-						},
-						"postal_code": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"real_region_name": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"region_name": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"timezone": {
-							"type": "string",
-							"index": "not_analyzed"
-						}
-					}
-				},
-				"host": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
 				"hostname": {
 					"properties": {
 						"name": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						},
 						"type": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						}
 					}
-				},
-				"id": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"ip": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"ipv4": {
-					"type": "ip"
 				},
 				"mac": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"os": {
-					"properties": {
-						"classes": {
-							"properties": {
-								"accuracy": {
-									"type": "integer"
-								},
-								"family": {
-									"type": "string",
-									"index": "not_analyzed"
-								},
-								"gen": {
-									"type": "string",
-									"index": "not_analyzed"
-								},
-								"type": {
-									"type": "string",
-									"index": "not_analyzed"
-								},
-								"vendor": {
-									"type": "string",
-									"index": "not_analyzed"
-								}
-							}
-						},
-						"matches": {
-							"properties": {
-								"accuracy": {
-									"type": "long"
-								},
-								"name": {
-									"type": "string",
-									"index": "not_analyzed"
-								}
-							}
-						},
-						"ports_used": {
-							"type": "long"
-						}
-					}
+					"type": "text"
 				},
 				"ports": {
 					"properties": {
 						"number": {
-							"type": "integer"
+							"type": "long"
 						},
 						"protocol": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "keyword"
 						},
 						"reason": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "text"
 						},
 						"service": {
 							"properties": {
@@ -871,16 +409,16 @@
 									"type": "long"
 								},
 								"fingerprint_method": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "text"
 								},
 								"name": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"product": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
+								},
+								"version": {
+									"type": "keyword"
 								},
 								"ssl": {
 									"type": "boolean"
@@ -888,67 +426,36 @@
 							}
 						},
 						"state": {
-							"type": "string",
-							"index": "not_analyzed"
+							"type": "text"
 						}
 					}
-				},
-				"scan_id": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"start_time": {
-					"type": "date",
-					"format": "strict_date_optional_time||epoch_millis"
-				},
-				"status": {
-					"properties": {
-						"reason": {
-							"type": "string",
-							"index": "not_analyzed"
-						},
-						"state": {
-							"type": "string",
-							"index": "not_analyzed"
-						}
-					}
-				},
-				"tags": {
-					"type": "string",
-					"index": "not_analyzed"
 				},
 				"traceroute": {
 					"properties": {
 						"hops": {
 							"properties": {
 								"address": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"geoip": {
 									"properties": {
 										"area_code": {
-											"type": "string",
-											"index": "not_analyzed"
+											"type": "keyword"
 										},
 										"city_name": {
-											"type": "string"
+											"type": "keyword"
 										},
 										"continent_code": {
-											"type": "string",
-											"index": "not_analyzed"
+											"type": "keyword"
 										},
 										"country_code2": {
-											"type": "string",
-											"index": "not_analyzed"
+											"type": "keyword"
 										},
 										"country_code3": {
-											"type": "string",
-											"index": "not_analyzed"
+											"type": "keyword"
 										},
 										"country_name": {
-											"type": "string",
-											"index": "not_analyzed"
+											"type": "keyword"
 										},
 										"dma_code": {
 											"type": "integer"
@@ -966,26 +473,21 @@
 											"type": "double"
 										},
 										"postal_code": {
-											"type": "string",
-											"index": "not_analyzed"
+											"type": "keyword"
 										},
 										"real_region_name": {
-											"type": "string",
-											"index": "not_analyzed"
+											"type": "keyword"
 										},
 										"region_name": {
-											"type": "string",
-											"index": "not_analyzed"
+											"type": "keyword"
 										},
 										"timezone": {
-											"type": "string",
-											"index": "not_analyzed"
+											"type": "keyword"
 										}
 									}
 								},
 								"hostname": {
-									"type": "string",
-									"index": "not_analyzed"
+									"type": "keyword"
 								},
 								"index": {
 									"type": "integer"
@@ -999,37 +501,13 @@
 							}
 						},
 						"port": {
-							"type": "integer"
-						},
-						"protocol": {
-							"type": "string",
-							"index": "not_analyzed"
-						}
-					}
-				},
-				"type": {
-					"type": "string",
-					"index": "not_analyzed"
-				},
-				"uptime": {
-					"properties": {
-						"last_boot": {
-							"type": "date",
-							"format": "strict_date_optional_time||epoch_millis"
-						},
-						"seconds": {
 							"type": "long"
 						},
-						"uptime": {
-							"type": "integer"
+						"protocol": {
+							"type": "keyword"
 						}
 					}
-				},
-				"version": {
-					"type": "string",
-					"index": "not_analyzed"
 				}
 			}
-		}
 	}
 }
